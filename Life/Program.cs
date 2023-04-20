@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using ScottPlot;
 using System.IO;
 using System.Text.Json;
 
@@ -83,7 +82,6 @@ namespace cli_life
                 List<char> values = lines[x].ToList().FindAll(e => e == '0' || e == '1');
                 for (int y = 0; y < values.Count - 1; y++)
                 {
-                    //Console.WriteLine(values.Count);
                     Cells[y, x].IsAlive = values[y] != '0';
                 }
             }
@@ -341,7 +339,6 @@ namespace cli_life
                     {
                         string fname = "gen-" + genCount.ToString();
                         StreamWriter writer = new StreamWriter(fname + ".txt");
-                        var plt = new ScottPlot.Plot(10 * board.Columns, 10 * board.Rows);
                         double[,] data = new double[board.Rows, board.Columns];
 
                         for (int row = 0; row < board.Rows; row++)
@@ -365,12 +362,7 @@ namespace cli_life
                         }
                         writer.Close();
 
-                        var hm = plt.AddHeatmap(data, lockScales: false);
-                        hm.CellWidth = 10;
-                        hm.CellHeight = 10;
-                        plt.SaveFig(fname + ".png");
-
-                        Console.WriteLine("Saved in files: " + fname + ".txt" + ", " + fname + ".png");
+                        Console.WriteLine("Saved in file: " + fname + ".txt");
                     }
                 }
 
